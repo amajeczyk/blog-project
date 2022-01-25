@@ -5,9 +5,10 @@ import App from './App';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  //deleted Recat stric mode because it called constructor twice
+  <>                
     <App />
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 
