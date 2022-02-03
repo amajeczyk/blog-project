@@ -9,8 +9,9 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  margin-left: auto;
-  padding: 10px;
+  margin: auto;
+
+  padding: 40px;
 }
 
 .load-more-wrapper {
