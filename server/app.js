@@ -4,10 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+const dotenv = require('dotenv')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let articelsRouter = require('./routes/articels')
+
+//initzialize configuration file
+dotenv.config();
 
 var app = express();
 
@@ -22,13 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 
-app.use('/', (req, res, next) => {
-  console.log(req.cookies);
-  
-  req.isAuthnticeted = true;
-  next();
-  
-})
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -41,7 +38,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res, next) {                 
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
