@@ -5,7 +5,6 @@ import "../style/MainContent.css";
 class MainContent extends React.Component {
   constructor(props) {
     super(props);
-    console.log("constructor");
     this.state = { blogs: [] };
     this.fetchArticels();
   }
@@ -23,10 +22,6 @@ class MainContent extends React.Component {
     }
   };
 
-  componentDidMount() {
-    console.log("component did mount");
-  }
-
   render() {
     const { blogs } = this.state;
     return (
@@ -34,7 +29,7 @@ class MainContent extends React.Component {
         <h1 className="blog-info"> There are some blogs to read</h1>
         <hr />
         {blogs.map((blogElement) => {
-          console.log("MainContent passing", blogElement);
+          //console.log("MainContent passing", blogElement);
           return blogElement ? (
             <div key={blogElement.id}>
               <BlogElement dataFromParent={blogElement} />
