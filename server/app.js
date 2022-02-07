@@ -6,7 +6,7 @@ var logger = require('morgan');
 var cors = require('cors')
 const dotenv = require('dotenv')
 
-var indexRouter = require('./routes/index');
+
 var usersRouter = require('./routes/users');
 let articelsRouter = require('./routes/articels')
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 
 
-app.use('/', indexRouter);
+
 app.use('/users', usersRouter);
 app.use('/articels', articelsRouter);
 
