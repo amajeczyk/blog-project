@@ -1,28 +1,29 @@
 import React from "react";
 import "../style/BlogElement.css";
+import { useNavigate } from "react-router-dom";
 
-class BlogElement extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { data: this.props.dataFromParent };
-  }
+function BlogElement(props) {
+  let navigate = useNavigate();
 
-  render() {
-    const data = this.state.data;
-    return (
-      <div className="blog-element-wrapper">
-        <div className="blog-title">
-          <h3>{data.title}</h3>
-          <span>{data.creationDate}</span>
-        </div>
-        <div className="contnet">{data.blogText}</div>
-        <div className="footer">
-          <span className="author">{data.author}</span>
-          <span className="readCount">{data.readCount}</span>
-        </div>
+  const data = props.dataFromParent;
+  return (
+    <div
+      className="blog-element-wrapper"
+      onClick={() => {
+        navigate(`/blog/${data.id}`);
+      }}
+    >
+      <div className="blog-title">
+        <h3>{data.title}</h3>
+        <span>{data.creationDate.slice(0, 10)}</span>
       </div>
-    );
-  }
+      <div className="contnet">{data.blogText}</div>
+      <div className="blog-footer">
+        <span className="author">{"Author: " + data.author}</span>
+        <span className="readCount">{data.readCount}</span>
+      </div>
+    </div>
+  );
 }
 
 export default BlogElement;
