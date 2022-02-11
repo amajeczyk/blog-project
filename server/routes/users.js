@@ -76,7 +76,9 @@ router.post('/login', function(req, res) {
       user = results.pop();
       if(await bcrypt.compare(textPassword, user.password)){
         //jwt
-        const token = jwt.sign({id: user.userID, username: user.username}, process.env.TOKEN_SECRET);
+        const token = jwt.sign({id: user.userID, username: user.username}, process.env.TOKEN_SECRET,  {
+          expiresIn: process.env.JWT_EXPIRES_IN
+      });
         return res.json({status : 'ok', token: token, message:"Successfuly logged in"});
 
       }
@@ -102,7 +104,7 @@ router.post('/authenticate', (req, res) => {
     }
   }
   catch(err){
-    console.log("Authentication error occured:", err)
+    console.log("Authentication error occured")
   }
   res.json({authentication : false, message : 'Authentication failed'});
 })
