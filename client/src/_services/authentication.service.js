@@ -3,7 +3,8 @@ let currentUser = localStorage.getItem('currentUser');
 
 export const authenticationService = {
     authenticateRequest,
-    logout
+    logout,
+    getTokenFromLocalStorage
 }
 
 async function authenticateRequest(){
@@ -25,6 +26,10 @@ async function authenticateRequest(){
         return jwt_decode(currentUser); //returing jwt payload
     }
     return null;
+}
+
+function getTokenFromLocalStorage(){
+    return localStorage.getItem('currentUser');
 }
 
 function logout() {
