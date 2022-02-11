@@ -1,0 +1,15 @@
+.footer {
+  background-color: #d2d7f0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.blog-it {
+  background-color: #d2d7f0;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 16px;
+}
