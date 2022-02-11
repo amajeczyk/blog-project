@@ -9,15 +9,13 @@ const dotenv = require('dotenv')
 
 var usersRouter = require('./routes/users');
 let articelsRouter = require('./routes/articels')
+let blog  = require('./routes/blog')
 
 //initzialize configuration file
 dotenv.config();
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -30,6 +28,7 @@ app.use(cors())
 
 app.use('/users', usersRouter);
 app.use('/articels', articelsRouter);
+app.use('/blog', blog)
 
 
 // catch 404 and forward to error handler
