@@ -1,0 +1,31 @@
+.user-blog {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin: 10px;
+  padding: 10px 20px;
+  height: 80px;
+  background-color: #dee1f1;
+  border-radius: 0.5rem;
+}
+
+.blogs-deletion {
+  max-width: 1400px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  align-items: center;
+}
+.main-account-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 40px;
+  background-color: rgb(253, 250, 247);
+}
+.blog-title {
+  margin-right: auto;
+}
