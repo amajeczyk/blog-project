@@ -2,10 +2,13 @@ const jwt = require('jsonwebtoken')
 const jwt_decode = require("jwt-decode");
 
 module.exports = function jwtCheck(req, res,next){
-    const {authToken} = req.body;
-    console.log('middleware')
-    if(!authToken){
-        return res.json({authentication : false, message : 'Authentication failed'});
+    let {authToken} = req.body;
+
+    console.log('jwt auth')
+    console.log(req.headers.authtoken);
+    if(!authToken){      
+      if(!req.headers.authtoken) return res.json({authentication : false, message : 'Authentication failed'});
+      authToken = req.headers.authtoken;
     }
     try{
         if(jwt.verify(authToken, process.env.TOKEN_SECRET)){
