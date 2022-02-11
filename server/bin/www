@@ -89,7 +89,8 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
+/*
 process.on('unhandledRejection', (err, promise) => {
   console.log(`Error caught ${err}`)
-  server.close(() => prcoess.exit(1))
-})
+  server.close(() => process.exit(1))
+})*/
