@@ -13,6 +13,7 @@ class Registration extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    const { navigation } = this.props;
     const result = await fetch("http://localhost:3001/users/register", {
       method: "POST",
       credentials: "same-origin",
@@ -30,6 +31,9 @@ class Registration extends React.Component {
         wrongCredentials: "You created an account! You can login now!",
         color: "green",
       });
+      setTimeout(() => {
+        navigation("/login");
+      }, 1500);
     } else {
       console.log("fail:", result.error);
       this.setState({
