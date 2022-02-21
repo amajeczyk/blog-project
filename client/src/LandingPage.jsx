@@ -6,9 +6,9 @@ import Footer from "./components/Footer";
 export default function LandingPage(props) {
   return (
     <>
-      <NavBar user={props.user} setCurrenUser={props.setCurrenUser} />
-      <MainContent user={props.user} />
-      <Footer user={props.user} />
+      <NavBar />
+      <MainContent />
+      <Footer />
     </>
   );
 }
