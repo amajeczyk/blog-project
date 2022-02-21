@@ -5,7 +5,8 @@ let jwtAuth = require('../controllers/jwtAuthentication')
 
 router.get('/main', (req, res) => {
 
-    const mysqlQuery = 'SELECT * FROM blogprojectdatabase.blogs LIMIT 5';
+    //const mysqlQuery = 'SELECT * FROM blogprojectdatabase.blogs ORDER BY RAND() LIMIT 5;';
+    const mysqlQuery = `SELECT userID, id, title, creationDate, blogText, readCount, username FROM blogprojectdatabase.blogs natural join blogprojectdatabase.credintials ORDER BY RAND() LIMIT 5;`
 
     db.query(mysqlQuery, (error, results, fields) => {
         if(error) {
@@ -13,12 +14,6 @@ router.get('/main', (req, res) => {
             res.json({status : 'error'})
         }
         
-        let date = new Date();
-
-        results.forEach(element => {
-            date.setTime(parseInt(element['creationDate'], 10))
-            element['creationDate'] = date
-        });
         res.json({status : 'ok', data:results})
     })
 
@@ -26,7 +21,7 @@ router.get('/main', (req, res) => {
 
 router.post('/add/blog', jwtAuth, async function(req, res){
    let validateTitle = /^[a-zA-Z0-9,#._ ]{6,80}$/i
-   let validateBlogText = /^[a-zA-Z0-9,#._ ]{20,5000}$/i
+   let validateBlogText = /^[a-zA-Z0-9,#._, ]{20,5000}$/i
 
    let {title, blogtext, user} = req.body;
 
@@ -39,13 +34,13 @@ router.post('/add/blog', jwtAuth, async function(req, res){
         return res.json({status : 'error', message : 'Title must have between 6 and 80 charcters'});
    }
    if(!validateBlogText.test(blogtext)){
-        return res.json({status : 'error', message : 'Text must have between 20 and 1000 charcters'});
+        return res.json({status : 'error', message : 'Text must have between 20 and 5000 charcters'});
     }   
 
     let date = String(Date.now());
     try {
 
-        const mysqlQuery = `INSERT INTO blogprojectdatabase.blogs (author, title, creationDate, blogText, readCount, userID) VALUES ("${user.username}", "${title}", "${date}", "${blogtext}", "${0}", "${user.id}") `;
+        const mysqlQuery = `INSERT INTO blogprojectdatabase.blogs (title, creationDate, blogText, readCount, userID) VALUES ("${title}", "${date}", "${blogtext}", "${0}", "${user.id}") `;
         db.query(mysqlQuery, (error, results, fields) => {
             if(error) {
                 console.log(error);
@@ -85,11 +80,36 @@ router.get('/get/user/blogs', jwtAuth, function(req, res, next){
     }
 })
 
-/*router.get('/get/new/blogs', function(req, res){
+router.get('/get/new/blogs', function(req, res){
     const blogsalreadydisplayed =  req.headers.blogsalreadydisplayed.split(',')
+    console.log(blogsalreadydisplayed)
 
+    let conditional = blogsalreadydisplayed.reduce((previousValue, currentValue, currentIndex) => { 
+        if(currentIndex == blogsalreadydisplayed.length - 1){
+            return previousValue + `id != '${currentValue}'`;
+        }
+        return previousValue + `id != '${currentValue}' and `;
     
-})*/
+    }, ``)
+    
+    conditional.slice(0, -4);
+
+    let mysqlQuery = `SELECT userID, id, title, creationDate, blogText, readCount, username FROM blogprojectdatabase.blogs 
+    natural join blogprojectdatabase.credintials where (${conditional}) ORDER BY RAND() LIMIT 5;`
+
+    try{
+        db.query(mysqlQuery, function(error, results, fields){
+            if(error){
+                console.log(error);
+                return res.json({status : 'error'})
+            }
+            return res.json({status : 'ok', data : results});
+        })
+    }
+    catch(error){
+        console.log(error);
+    }
+})
 
 router.delete('/delete',  jwtAuth, function(req, res){
     const {blogId, user} = req.body;
