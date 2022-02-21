@@ -17,7 +17,7 @@ function NavBar(props) {
 
   return (
     <>
-      <IconContext.Provider value={{ color: "#fff" }}>
+      <IconContext.Provider value={{ color: "#fff", size: "1.05rem" }}>
         <nav className="nav-menu">
           <ul className="nav-menu-items">
             <li className="navbar-toggle">
@@ -40,8 +40,10 @@ function NavBar(props) {
                       navigate("/addBlog");
                     }}
                   >
-                    {item.icon}
-                    <span className="title-span">{item.title}</span>
+                    <div className="icon-wrapper">
+                      {item.icon}
+                      <span className="title-span">{item.title}</span>
+                    </div>
                   </button>
                 </li>
               );

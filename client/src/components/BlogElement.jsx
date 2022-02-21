@@ -15,11 +15,12 @@ function BlogElement(props) {
     >
       <div className="blog-title">
         <h3>{data.title}</h3>
-        <span>{data.creationDate.slice(0, 10)}</span>
+        {console.log(data.creationDate)}
+        <span>{data.creationDate}</span>
       </div>
       <div className="contnet">{data.blogText}</div>
       <div className="blog-footer">
-        <span className="author">{"Author: " + data.author}</span>
+        <span className="author">{"Author: " + data.username}</span>
         <span className="readCount">{data.readCount}</span>
       </div>
     </div>

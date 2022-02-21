@@ -6,13 +6,21 @@ class Registration extends React.Component {
     username: "",
     email: "",
     textPassword: "",
-    wrongCredentials: "",
-    route: "",
+    confirmPassword: "",
+    info: "",
     color: "red",
   };
 
   handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (this.state.textPassword !== this.state.confirmPassword) {
+      this.setState({
+        info: "Passwords do not match",
+      });
+      return;
+    }
+
     const { navigation } = this.props;
     const result = await fetch("http://localhost:3001/users/register", {
       method: "POST",
@@ -28,7 +36,7 @@ class Registration extends React.Component {
       //successful registration
       console.log("sucess");
       this.setState({
-        wrongCredentials: "You created an account! You can login now!",
+        info: "You created an account! You can login now!",
         color: "green",
       });
       setTimeout(() => {
@@ -37,7 +45,7 @@ class Registration extends React.Component {
     } else {
       console.log("fail:", result.error);
       this.setState({
-        wrongCredentials: "Account with this email or username already exists.",
+        info: "Account with this email or username already exists.",
       });
     }
   };
@@ -82,18 +90,21 @@ class Registration extends React.Component {
                   onChange={this.handleChange}
                 />
               </div>
+              <div className="form-group">
+                <label htmlFor="password">Confirm password:</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="confirm password"
+                  onChange={this.handleChange}
+                />
+              </div>
               <button type="submit" className="button">
                 Sign up
               </button>
             </form>
-            <p
-              style={{
-                color: this.state.color,
-                fontWeight: "500",
-                fontSize: "20px",
-              }}
-            >
-              {this.state.wrongCredentials}
+            <p className="info" style={{ color: this.state.color }}>
+              {this.state.info}
             </p>
           </div>
         </div>

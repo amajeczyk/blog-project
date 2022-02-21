@@ -76,9 +76,11 @@ class Account extends React.Component {
           <h1>Hello {user.username}!</h1>
           <div className="blogs-deletion">
             {userBlogs.length ? (
-              <span>Here you can find your blogs</span>
+              <span className="blog-info1">Here you can find your blogs</span>
             ) : (
-              <span>You haven't created blog yet :(</span>
+              <span className="blog-info1">
+                You haven't created blog yet :(
+              </span>
             )}
             {userBlogs.map((blogElement) => {
               return blogElement ? (

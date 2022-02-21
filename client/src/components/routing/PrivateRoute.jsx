@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { authenticationService } from "../../_services/authentication.service";
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import GoToLoginPage from "../login/GoToLoginPage";
 
 const PrivateRoute = ({ children }) => {
   const [auth, setAuth] = useState(false);
@@ -23,7 +23,7 @@ const PrivateRoute = ({ children }) => {
       React.cloneElement(children, { user: userIsFetched.data })
     ) : (
       <div>
-        <h1>You have to log in</h1>
+        <GoToLoginPage />
         {/*<Navigate to="/login" />*/}
       </div>
     )

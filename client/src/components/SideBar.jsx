@@ -1,6 +1,7 @@
 import React from "react";
 import * as FaIcons from "react-icons/fa";
 //import * as AiIcons from "react-icons/ai";
+import * as Ri from "react-icons/ri";
 
 export const Sidebar = [
   /*{
@@ -12,7 +13,7 @@ export const Sidebar = [
   {
     title: "Create blog",
     path: "/products",
-    icon: <FaIcons.FaCartPlus />,
+    icon: <Ri.RiAddCircleFill />,
     cName: "nav-text",
   },
 ];

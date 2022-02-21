@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import "../style/BlogView.css";
+import { authenticationService } from "../_services/authentication.service";
 
 function BlogView(props) {
   let { id } = useParams();
   const [blog, setBlog] = useState({});
+  const [authToken] = useState(
+    authenticationService.getTokenFromLocalStorage()
+  );
 
   let getBlog = async () => {
     const result = await fetch(`http://localhost:3001/blog/${id}`, {
@@ -23,6 +27,22 @@ function BlogView(props) {
   }, []);
 
   console.log(blog);
+
+  const upVoteBlog = async () => {
+    const result = await fetch(`http://localhost:3001/blog/upvote/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ authToken: authToken }),
+    }).then((res) => res.json());
+
+    if (result.message == "Authentication failed") {
+      alert("You have to log in to vote");
+      return;
+    }
+    alert(result.message);
+  };
   return (
     <>
       <NavBar />
@@ -34,7 +54,9 @@ function BlogView(props) {
           {blog.blogText ? blog.blogText : <></>}
         </div>
         <div className="blog-view-footer">
-          <button className="button-38">Up vote</button>
+          <button className="button-38" onClick={upVoteBlog}>
+            Up vote
+          </button>
         </div>
       </div>
     </>
