@@ -24,8 +24,14 @@
   flex-direction: column;
   margin: auto;
   padding: 40px;
-  background-color: rgb(253, 250, 247);
 }
 .blog-title {
   margin-right: auto;
+}
+.blog-info1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 1.5rem;
 }

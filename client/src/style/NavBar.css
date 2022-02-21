@@ -86,3 +86,8 @@ ul {
 .blog-logo:hover {
   cursor: pointer;
 }
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+}
