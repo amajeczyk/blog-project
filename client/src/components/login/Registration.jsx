@@ -34,7 +34,6 @@ class Registration extends React.Component {
     //handle login action
     if (result.status === "ok") {
       //successful registration
-      console.log("sucess");
       this.setState({
         info: "You created an account! You can login now!",
         color: "green",
@@ -43,7 +42,7 @@ class Registration extends React.Component {
         navigation("/login");
       }, 1500);
     } else {
-      console.log("fail:", result.error);
+      alert("fail:", result.error);
       this.setState({
         info: "Account with this email or username already exists.",
       });

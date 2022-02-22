@@ -28,8 +28,6 @@ router.post('/add/blog', jwtAuth, async function(req, res){
     title.trim()
     blogtext.trim()
 
-   console.log(title, blogtext, user);
-
    if(!validateTitle.test(title)){
         return res.json({status : 'error', message : 'Title must have between 6 and 80 charcters'});
    }
@@ -57,7 +55,6 @@ router.post('/add/blog', jwtAuth, async function(req, res){
 
 router.get('/get/user/blogs', jwtAuth, function(req, res, next){
     const {user} = req.body;
-    console.log(user);
     
     try{
         const mysqlQuery = `SELECT * FROM blogprojectdatabase.blogs WHERE userID="${user.id}"`;
@@ -82,7 +79,6 @@ router.get('/get/user/blogs', jwtAuth, function(req, res, next){
 
 router.get('/get/new/blogs', function(req, res){
     const blogsalreadydisplayed =  req.headers.blogsalreadydisplayed.split(',')
-    console.log(blogsalreadydisplayed)
 
     let conditional = blogsalreadydisplayed.reduce((previousValue, currentValue, currentIndex) => { 
         if(currentIndex == blogsalreadydisplayed.length - 1){

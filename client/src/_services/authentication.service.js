@@ -21,7 +21,6 @@ async function authenticateRequest(){
 
     const response = await fetch("http://localhost:3001/users/authenticate", requestOptions).then(response => response.json());
 
-    console.log('response.authentication', response.authentication);
     if(response.authentication){        
         return jwt_decode(currentUser); //returing jwt payload
     }

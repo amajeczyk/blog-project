@@ -25,13 +25,12 @@ class Account extends React.Component {
       }
     ).then((res) => res.json());
 
-    console.log("status", result.status);
     if (result.status === "ok") {
       this.setState({ userBlogs: result.data });
       return;
     } else {
       //dispaly somethingi if data cannot be fetched
-      console.log("Cannot get user's blogs");
+      alert("Cannot get user's blogs");
     }
   };
 
@@ -53,11 +52,9 @@ class Account extends React.Component {
       });
 
       this.setState({ userBlogs: userBlogs1 });
-      console.log(result.message);
       alert(result.message);
       return;
     }
-    console.log(result.message);
     alert(result.message);
   };
 

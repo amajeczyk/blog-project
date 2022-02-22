@@ -41,11 +41,9 @@ class AddBlog extends React.Component {
     }).then((res) => res.json());
 
     if (result.status === "ok") {
-      console.log("blog added succesfully");
       alert(result.message);
     } else {
-      console.log("fail:", result.message);
-      alert("Cannot add blog right now");
+      alert("fail:", result.message);
     }
   };
 

@@ -22,11 +22,8 @@ class Login extends React.Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("currentUser", data.token);
         if (data.status === "ok") {
-          //console.log("token encoded", jwt(data.token));
           localStorage.setItem("currentUser", data.token);
-          this.props.setCurrenUser();
           navigation("/");
         } else {
           alert("Invalid username/password");

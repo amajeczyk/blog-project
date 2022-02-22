@@ -23,10 +23,7 @@ function BlogView(props) {
 
   useEffect(() => {
     getBlog();
-    console.log("hello1");
   }, []);
-
-  console.log(blog);
 
   const upVoteBlog = async () => {
     const result = await fetch(`http://localhost:3001/blog/upvote/${id}`, {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { authenticationService } from "../../_services/authentication.service";
-import { useNavigate } from "react-router-dom";
 import GoToLoginPage from "../login/GoToLoginPage";
 
 const PrivateRoute = ({ children }) => {
@@ -9,7 +8,6 @@ const PrivateRoute = ({ children }) => {
     state: false,
     data: {},
   });
-  const navigate = useNavigate();
 
   useEffect(() => {
     authenticationService.authenticateRequest().then((data) => {
@@ -24,7 +22,6 @@ const PrivateRoute = ({ children }) => {
     ) : (
       <div>
         <GoToLoginPage />
-        {/*<Navigate to="/login" />*/}
       </div>
     )
   ) : (

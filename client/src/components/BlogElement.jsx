@@ -15,7 +15,6 @@ function BlogElement(props) {
     >
       <div className="blog-title">
         <h3>{data.title}</h3>
-        {console.log(data.creationDate)}
         <span>{data.creationDate}</span>
       </div>
       <div className="contnet">{data.blogText}</div>

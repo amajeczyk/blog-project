@@ -8,7 +8,6 @@ class MainContent extends React.Component {
     super(props);
     this.state = { blogs: [] };
     this.fetchArticels();
-    console.log("CONSTRUCTOR");
   }
 
   fetchArticels = async () => {
@@ -47,7 +46,6 @@ class MainContent extends React.Component {
         <h1 className="blog-info"> There are some blogs to read</h1>
         <hr />
         {blogs.map((blogElement) => {
-          //console.log("MainContent passing", blogElement);
           return blogElement ? (
             <div key={blogElement.id}>
               <BlogElement dataFromParent={blogElement} />
