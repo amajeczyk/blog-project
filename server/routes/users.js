@@ -20,7 +20,7 @@ router.post('/register', async function(req, res) {
 
   //check if user exists
   try{
-    const q1 = `SELECT EXISTS(SELECT * FROM blogprojectdatabase.credintials WHERE username="${username}" or email="${email}")`;
+    const q1 = `SELECT EXISTS(SELECT * FROM ${process.env.HOST}.credintials WHERE username="${username}" or email="${email}")`;
     db.query(q1, async (error, results, fields) => {
       if(error) {
           console.log('error', error);
@@ -34,7 +34,7 @@ router.post('/register', async function(req, res) {
 
       //Try to create user
       const hashedPassword = await bcrypt.hash(textPassword,10);
-      const mysqlQuery = `INSERT INTO blogprojectdatabase.credintials (username, password, email) VALUES ("${username}", "${hashedPassword}", "${email}")`;
+      const mysqlQuery = `INSERT INTO ${process.env.HOST}.credintials (username, password, email) VALUES ("${username}", "${hashedPassword}", "${email}")`;
 
       try{
           db.query(mysqlQuery, (error, results, fields) => {
@@ -58,7 +58,7 @@ router.post('/register', async function(req, res) {
 router.post('/login', function(req, res) {
   const {username, textPassword} = req.body;
   
-  const q1 = `SELECT * FROM blogprojectdatabase.credintials WHERE username="${username}"`;
+  const q1 = `SELECT * FROM ${process.env.HOST}.credintials WHERE username="${username}"`;
   let user;
 
   if(textPassword.length < 6){

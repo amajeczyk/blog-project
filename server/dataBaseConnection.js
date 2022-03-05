@@ -1,18 +1,11 @@
 let mysql = require('mysql');
 //connect to database
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '12345678',
-    database: 'blogprojectdatabase'
+const db = mysql.createPool({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
   })
   
-  db.connect((err) => {
-    if(err){
-        console.log('Failed to connect to database');
-        return;
-    }
-    console.log('Successfuly connected to database');
-  })
-
-  module.exports = db
+module.exports = db
+  

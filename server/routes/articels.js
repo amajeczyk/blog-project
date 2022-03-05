@@ -5,16 +5,15 @@ let jwtAuth = require('../controllers/jwtAuthentication')
 
 router.get('/main', (req, res) => {
 
-    //const mysqlQuery = 'SELECT * FROM blogprojectdatabase.blogs ORDER BY RAND() LIMIT 5;';
-    const mysqlQuery = `SELECT userID, id, title, creationDate, blogText, readCount, username FROM blogprojectdatabase.blogs natural join blogprojectdatabase.credintials ORDER BY RAND() LIMIT 5;`
+    const mysqlQuery = `SELECT userID, id, title, creationDate, blogText, readCount, username FROM ${process.env.HOST}.blogs natural join ${process.env.HOST}.credintials ORDER BY RAND() LIMIT 5;`
 
     db.query(mysqlQuery, (error, results, fields) => {
         if(error) {
             console.log(error);
-            res.json({status : 'error'})
+            return res.json({status : 'error'})
         }
         
-        res.json({status : 'ok', data:results})
+        return res.json({status : 'ok', data:results})
     })
 
 })
@@ -38,7 +37,7 @@ router.post('/add/blog', jwtAuth, async function(req, res){
     let date = String(Date.now());
     try {
 
-        const mysqlQuery = `INSERT INTO blogprojectdatabase.blogs (title, creationDate, blogText, readCount, userID) VALUES ("${title}", "${date}", "${blogtext}", "${0}", "${user.id}") `;
+        const mysqlQuery = `INSERT INTO ${process.env.HOST}.blogs (title, creationDate, blogText, readCount, userID) VALUES ("${title}", "${date}", "${blogtext}", "${0}", "${user.id}") `;
         db.query(mysqlQuery, (error, results, fields) => {
             if(error) {
                 console.log(error);
@@ -57,7 +56,7 @@ router.get('/get/user/blogs', jwtAuth, function(req, res, next){
     const {user} = req.body;
     
     try{
-        const mysqlQuery = `SELECT * FROM blogprojectdatabase.blogs WHERE userID="${user.id}"`;
+        const mysqlQuery = `SELECT * FROM ${process.env.HOST}.blogs WHERE userID="${user.id}"`;
         db.query(mysqlQuery, function(error, results, fields){
             if(error){
                 console.log(error);
@@ -90,8 +89,8 @@ router.get('/get/new/blogs', function(req, res){
     
     conditional.slice(0, -4);
 
-    let mysqlQuery = `SELECT userID, id, title, creationDate, blogText, readCount, username FROM blogprojectdatabase.blogs 
-    natural join blogprojectdatabase.credintials where (${conditional}) ORDER BY RAND() LIMIT 5;`
+    let mysqlQuery = `SELECT userID, id, title, creationDate, blogText, readCount, username FROM ${process.env.HOST}.blogs 
+    natural join ${process.env.HOST}.credintials where (${conditional}) ORDER BY RAND() LIMIT 5;`
 
     try{
         db.query(mysqlQuery, function(error, results, fields){
@@ -111,7 +110,7 @@ router.delete('/delete',  jwtAuth, function(req, res){
     const {blogId, user} = req.body;
     
     try {
-        const mysqlQuery = `DELETE FROM blogprojectdatabase.blogs WHERE (userID = "${user.id}" AND id = "${blogId}");`
+        const mysqlQuery = `DELETE FROM ${process.env.HOST}.blogs WHERE (userID = "${user.id}" AND id = "${blogId}");`
         db.query(mysqlQuery, function(error, results, fields){
             if(error){
                 return res.json({status : 'error', message : 'error occured'});

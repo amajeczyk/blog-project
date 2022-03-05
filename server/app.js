@@ -22,9 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors())
-
-
+app.use(cors({
+  origin: "https://naughty-hopper-a16c5d.netlify.app", 
+  credentials: true,
+}))
 
 app.use('/users', usersRouter);
 app.use('/articels', articelsRouter);
