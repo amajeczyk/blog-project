@@ -22,14 +22,17 @@ class Registration extends React.Component {
     }
 
     const { navigation } = this.props;
-    const result = await fetch("http://localhost:3001/users/register", {
-      method: "POST",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(this.state),
-    }).then((res) => res.json());
+    const result = await fetch(
+      "https://majerczyk-blog-it.herokuapp.com/users/register",
+      {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.state),
+      }
+    ).then((res) => res.json());
 
     //handle login action
     if (result.status === "ok") {

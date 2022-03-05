@@ -12,7 +12,7 @@ class Login extends React.Component {
   handelSubmit = async (event) => {
     const { navigation } = this.props;
     event.preventDefault();
-    await fetch("http://localhost:3001/users/login", {
+    await fetch("https://majerczyk-blog-it.herokuapp.com/users/login", {
       method: "POST",
       credentials: "same-origin",
       headers: {

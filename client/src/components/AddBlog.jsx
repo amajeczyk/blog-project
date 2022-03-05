@@ -31,14 +31,17 @@ class AddBlog extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     if (!this.validateFields()) return;
-    const result = await fetch("http://localhost:3001/articels/add/blog", {
-      method: "POST",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(this.state),
-    }).then((res) => res.json());
+    const result = await fetch(
+      "https://majerczyk-blog-it.herokuapp.com/articels/add/blog",
+      {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.state),
+      }
+    ).then((res) => res.json());
 
     if (result.status === "ok") {
       alert(result.message);

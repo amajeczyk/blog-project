@@ -19,7 +19,7 @@ async function authenticateRequest(){
         body: JSON.stringify({ authToken :  currentUser})
     };
 
-    const response = await fetch("http://localhost:3001/users/authenticate", requestOptions).then(response => response.json());
+    const response = await fetch("https://majerczyk-blog-it.herokuapp.com/users/authenticate", requestOptions).then(response => response.json());
 
     if(response.authentication){        
         return jwt_decode(currentUser); //returing jwt payload

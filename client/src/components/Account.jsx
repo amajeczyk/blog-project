@@ -18,7 +18,7 @@ class Account extends React.Component {
 
   getUserBlogs = async () => {
     const result = await fetch(
-      `http://localhost:3001/articels/get/user/blogs`,
+      `https://majerczyk-blog-it.herokuapp.com/articels/get/user/blogs`,
       {
         method: "GET",
         headers: { authToken: this.state.authToken },
@@ -38,13 +38,19 @@ class Account extends React.Component {
     const blogId = event.target.getAttribute("blogid");
     event.stopPropagation();
 
-    const result = await fetch(`http://localhost:3001/articels/delete`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ blogId: blogId, authToken: this.state.authToken }),
-    }).then((res) => res.json());
+    const result = await fetch(
+      `https://majerczyk-blog-it.herokuapp.com/articels/delete`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          blogId: blogId,
+          authToken: this.state.authToken,
+        }),
+      }
+    ).then((res) => res.json());
 
     if (result.status === "ok") {
       const userBlogs1 = this.state.userBlogs.filter((elem) => {
@@ -59,7 +65,10 @@ class Account extends React.Component {
   };
 
   redirectToBlogView = (event) => {
-    const id = event.target.getAttribute("id");
+    let id = event.target.getAttribute("id");
+    if (!id) {
+      id = event.target.parentElement.getAttribute("id");
+    }
     this.props.navigate(`/blog/${id}`);
   };
 

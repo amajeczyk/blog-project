@@ -11,9 +11,12 @@ class MainContent extends React.Component {
   }
 
   fetchArticels = async () => {
-    const result = await fetch("http://localhost:3001/articels/main", {
-      method: "GET",
-    }).then((res) => res.json());
+    const result = await fetch(
+      "https://majerczyk-blog-it.herokuapp.com/articels/main",
+      {
+        method: "GET",
+      }
+    ).then((res) => res.json());
 
     if (result.status === "ok") {
       formatDate(result.data);
@@ -25,12 +28,15 @@ class MainContent extends React.Component {
   };
 
   fetchNewArticels = async () => {
-    const result = await fetch("http://localhost:3001/articels/get/new/blogs", {
-      method: "GET",
-      headers: {
-        blogsalreadydisplayed: this.state.blogs.map((elem) => elem.id),
-      },
-    }).then((res) => res.json());
+    const result = await fetch(
+      "https://majerczyk-blog-it.herokuapp.com/articels/get/new/blogs",
+      {
+        method: "GET",
+        headers: {
+          blogsalreadydisplayed: this.state.blogs.map((elem) => elem.id),
+        },
+      }
+    ).then((res) => res.json());
 
     formatDate(result.data);
     let blogs1 = [];

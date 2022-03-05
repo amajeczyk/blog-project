@@ -12,9 +12,12 @@ function BlogView(props) {
   );
 
   let getBlog = async () => {
-    const result = await fetch(`http://localhost:3001/blog/${id}`, {
-      method: "GET",
-    }).then((res) => res.json());
+    const result = await fetch(
+      `https://majerczyk-blog-it.herokuapp.com/blog/${id}`,
+      {
+        method: "GET",
+      }
+    ).then((res) => res.json());
 
     if (result.status === "ok") {
       setBlog(result.data.pop());
@@ -26,13 +29,16 @@ function BlogView(props) {
   }, []);
 
   const upVoteBlog = async () => {
-    const result = await fetch(`http://localhost:3001/blog/upvote/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ authToken: authToken }),
-    }).then((res) => res.json());
+    const result = await fetch(
+      `https://majerczyk-blog-it.herokuapp.com/blog/upvote/${id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ authToken: authToken }),
+      }
+    ).then((res) => res.json());
 
     if (result.message == "Authentication failed") {
       alert("You have to log in to vote");
